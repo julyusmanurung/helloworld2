@@ -9,7 +9,6 @@ export default function Home() {
 
   const getData = async () => {
     try {
-      console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
       const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL);
       const data = await res.json();
       setData(data);
