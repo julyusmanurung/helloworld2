@@ -1,10 +1,10 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react';
 
 export default function Home() {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   useEffect(() => {
-    getData()
+    getData();
   }, []);
 
   const getData = async () => {
@@ -16,7 +16,7 @@ export default function Home() {
     catch (error) {
       setError(error);
     }
-  }
+  };
 
   return (
     <div>
@@ -33,7 +33,7 @@ export default function Home() {
         <p key={index}>{item}</p>
       ))}
     </div>
-  )
+  );
 
   function Input({onSuccess}) {
     const [data, setData] = useState(null);
@@ -61,12 +61,12 @@ export default function Home() {
     }
     return (
       <div>
-        {error && <p>error: {error.toString()}</p>}
-        {data && <p>success: {data}</p>}
         <form onSubmit={handleSubmit}>
           <input name="data" type="text" />
-          <button >Submit</button>
+          <button className='bg-cyan-500 hover:bg-cyan-600'>Submit</button>
         </form>
+        {error && <p>error: {error.toString()}</p>}
+        {data && <p>success: {data}</p>}
       </div>
     )
   }
