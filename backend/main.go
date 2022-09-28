@@ -2,9 +2,11 @@ package main
 
 import (
 	"net/http"
+	"os"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func handler(c *gin.Context) {
@@ -20,5 +22,5 @@ func main() {
 	}))
 
 	r.GET("/", handler)
-	r.Run(":8080")
+	r.Run(":" + os.Getenv("PORT"))
 }
