@@ -7,7 +7,6 @@ export default function Home() {
     getData()
   }, []);
 
-  console.log(data?.data)
   const getData = async () => {
     try {
       console.log(process.env.NEXT_PUBLIC_BACKEND_URL)
