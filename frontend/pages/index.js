@@ -9,7 +9,7 @@ export default function Home() {
 
   const getData = async () => {
     try {
-      const res = await fetch(process.env.NEXT_PUBLIC_BACKEND_URL);
+      const res = await fetch("https://helloworld2-frontend-i24x.vercel.app/");
       const data = await res.json();
       setData(data);
     }
