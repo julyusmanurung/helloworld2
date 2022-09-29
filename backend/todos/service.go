@@ -1,6 +1,7 @@
 package todos
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/julyusmanurung/helloworld2/model"
@@ -24,6 +25,7 @@ func NewService(repo Repository) *service {
 func (s *service) GetTodos() ([]model.Todos, int, error) {
 	todos, err := s.repo.GetTodos()
 	if err != nil {
+		log.Println("get data error", err)
 		return nil, http.StatusInternalServerError, err
 	}
 
@@ -33,6 +35,7 @@ func (s *service) GetTodos() ([]model.Todos, int, error) {
 func (s *service) CreateTodos(req DataRequest) (model.Todos, int, error) {
 	todo, err := s.repo.CreateTodos(req.Task)
 	if err != nil {
+		log.Println("create error", err)
 		return model.Todos{}, http.StatusInternalServerError, err
 	}
 
@@ -42,6 +45,7 @@ func (s *service) CreateTodos(req DataRequest) (model.Todos, int, error) {
 func (s *service) UpdateTodos(id string) (model.Todos, int, error) {
 	todo, err := s.repo.UpdateTodos(id)
 	if err != nil {
+		log.Println("update error", err)
 		return model.Todos{}, http.StatusInternalServerError, err
 	}
 
@@ -51,6 +55,7 @@ func (s *service) UpdateTodos(id string) (model.Todos, int, error) {
 func (s *service) DeleteTodos(id string) (model.Todos, int, error) {
 	todo, err := s.repo.DeleteTodos(id)
 	if err != nil {
+		log.Println("delete error", err)
 		return model.Todos{}, http.StatusInternalServerError, err
 	}
 

@@ -1,6 +1,8 @@
 package todos
 
 import (
+	"log"
+
 	"github.com/julyusmanurung/helloworld2/model"
 	"gorm.io/gorm"
 )
@@ -24,6 +26,7 @@ func (r *repository) GetTodos() ([]model.Todos, error) {
 	var todos []model.Todos
 	res := r.db.Find(&todos)
 	if res.Error != nil {
+		log.Println("get data error", res.Error)
 		return nil, res.Error
 	}
 
@@ -38,6 +41,7 @@ func (r *repository) CreateTodos(task string) (model.Todos, error) {
 
 	res := r.db.Create(&todo)
 	if res.Error != nil {
+		log.Println("create error", res.Error)
 		return model.Todos{}, res.Error
 	}
 
@@ -51,6 +55,7 @@ func (r *repository) UpdateTodos(id string) (model.Todos, error) {
 
 	res := r.db.Model(&todo).Where("ID", id).Updates(&todo)
 	if res.Error != nil {
+		log.Println("update error", res.Error)
 		return model.Todos{}, res.Error
 	}
 
@@ -62,6 +67,7 @@ func (r *repository) DeleteTodos(id string) (model.Todos, error) {
 
 	res := r.db.Model(&todo).Where("ID", id).Delete(&todo)
 	if res.Error != nil {
+		log.Println("delete error", res.Error)
 		return model.Todos{}, res.Error
 	}
 
