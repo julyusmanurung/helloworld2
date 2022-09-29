@@ -3,6 +3,7 @@ package todos
 import (
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -71,7 +72,12 @@ func (h *Handler) UpdateTodo(c *gin.Context) {
 }
 
 func (h *Handler) DeleteTodo(c *gin.Context) {
-	res, status, err := h.Service.DeleteTodos(c.Param("id"))
+	id, err := strconv.ParseUint(c.Param("id"), 10, 32)
+	if err != nil {
+		log.Println("convert string to uint error", err)
+	}
+
+	res, status, err := h.Service.DeleteTodos(uint(id))
 	if err != nil {
 		log.Println("delete error", err)
 		c.JSON(status, gin.H{
