@@ -10,7 +10,7 @@ import (
 type Service interface {
 	GetTodos() ([]model.Todos, int, error)
 	CreateTodos(req DataRequest) (model.Todos, int, error)
-	UpdateTodos(id string) (model.Todos, int, error)
+	UpdateTodos(id uint) (model.Todos, int, error)
 	DeleteTodos(id uint) (model.Todos, int, error)
 }
 
@@ -42,7 +42,7 @@ func (s *service) CreateTodos(req DataRequest) (model.Todos, int, error) {
 	return todo, http.StatusOK, nil
 }
 
-func (s *service) UpdateTodos(id string) (model.Todos, int, error) {
+func (s *service) UpdateTodos(id uint) (model.Todos, int, error) {
 	todo, err := s.repo.UpdateTodos(id)
 	if err != nil {
 		log.Println("update error", err)

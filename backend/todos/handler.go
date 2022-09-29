@@ -56,7 +56,12 @@ func (h *Handler) CreateTodo(c *gin.Context) {
 }
 
 func (h *Handler) UpdateTodo(c *gin.Context) {
-	res, status, err := h.Service.UpdateTodos(c.Param("id"))
+	id, err := strconv.ParseUint(c.Param("id"), 10, 32)
+	if err != nil {
+		log.Println("convert string to uint error", err)
+	}
+
+	res, status, err := h.Service.UpdateTodos(uint(id))
 	if err != nil {
 		log.Println("update error", err)
 		c.JSON(status, gin.H{
