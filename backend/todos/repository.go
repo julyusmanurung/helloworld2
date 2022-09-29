@@ -11,7 +11,7 @@ type Repository interface {
 	GetTodos() ([]model.Todos, error)
 	CreateTodos(data string) (model.Todos, error)
 	UpdateTodos(id string) (model.Todos, error)
-	DeleteTodos(id string) (model.Todos, error)
+	DeleteTodos(id uint) (model.Todos, error)
 }
 
 type repository struct {
@@ -62,10 +62,15 @@ func (r *repository) UpdateTodos(id string) (model.Todos, error) {
 	return todo, nil
 }
 
-func (r *repository) DeleteTodos(id string) (model.Todos, error) {
-	todo := model.Todos{}
+func (r *repository) DeleteTodos(id uint) (model.Todos, error) {
+	todo := model.Todos{
+		Model: gorm.Model{
+			ID: id,
+		},
+	}
 
-	res := r.db.Model(&todo).Where("ID", id).Delete(&todo)
+	res := r.db.Delete(&todo)
+	// Model(&todo).Where("ID", id).Delete(&todo)
 	if res.Error != nil {
 		log.Println("delete error", res.Error)
 		return model.Todos{}, res.Error
