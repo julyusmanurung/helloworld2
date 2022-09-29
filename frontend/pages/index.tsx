@@ -1,5 +1,4 @@
 import {useState, useEffect} from 'react';
-import { isMapIterator } from 'util/types';
 
 export default function Home() {
   const [data, setData] = useState(null);
@@ -25,9 +24,7 @@ export default function Home() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/send/${id}`, {
         method: 'DELETE',
       });
-      const data = await res.json();
-      setData(data.message);
-      window.location.reload();
+      getData()
     }
     catch (error) {
       setError(error);
@@ -39,9 +36,7 @@ export default function Home() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/send/${id}`, {
         method: 'PUT',
       });
-      const data = await res.json();
-      setData(data.message);
-      window.location.reload();
+      getData()
     }
     catch (error) {
       setError(error);
