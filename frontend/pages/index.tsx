@@ -25,9 +25,9 @@ export default function Home() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/send/${id}`, {
         method: 'DELETE',
       });
-      window.location.reload();
       const data = await res.json();
       setData(data.message);
+      window.location.reload();
     }
     catch (error) {
       setError(error);
@@ -39,9 +39,9 @@ export default function Home() {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/send/${id}`, {
         method: 'PUT',
       });
-      window.location.reload();
       const data = await res.json();
       setData(data.message);
+      window.location.reload();
     }
     catch (error) {
       setError(error);
