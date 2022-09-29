@@ -8,6 +8,7 @@ import (
 func (s *server) SetupRouter() {
 	s.Router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{"*"},
+		AllowMethods: []string{"GET", "POST", "DELETE", "PUT"},
 	}))
 
 	todosRepo := todos.NewRepository(s.DB)
@@ -16,4 +17,6 @@ func (s *server) SetupRouter() {
 
 	s.Router.GET("/", todosHandler.GetTodos)
 	s.Router.POST("/send", todosHandler.CreateTodo)
+	s.Router.PUT("/send/:id", todosHandler.UpdateTodo)
+	s.Router.DELETE("/send/:id", todosHandler.DeleteTodo)
 }

@@ -49,3 +49,33 @@ func (h *Handler) CreateTodo(c *gin.Context) {
 		"data":    res,
 	})
 }
+
+func (h *Handler) UpdateTodo(c *gin.Context) {
+	res, status, err := h.Service.UpdateTodos(c.Param("id"))
+	if err != nil {
+		c.JSON(status, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(status, gin.H{
+		"message": "success",
+		"data":    res,
+	})
+}
+
+func (h *Handler) DeleteTodo(c *gin.Context) {
+	res, status, err := h.Service.DeleteTodos(c.Param("id"))
+	if err != nil {
+		c.JSON(status, gin.H{
+			"message": err.Error(),
+		})
+		return
+	}
+
+	c.JSON(status, gin.H{
+		"message": "success",
+		"data":    res,
+	})
+}
