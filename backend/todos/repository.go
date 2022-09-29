@@ -10,7 +10,7 @@ import (
 type Repository interface {
 	GetTodos() ([]model.Todos, error)
 	CreateTodos(data string) (model.Todos, error)
-	UpdateTodos(id string) (model.Todos, error)
+	UpdateTodos(id uint) (model.Todos, error)
 	DeleteTodos(id uint) (model.Todos, error)
 }
 
@@ -48,7 +48,7 @@ func (r *repository) CreateTodos(task string) (model.Todos, error) {
 	return todo, nil
 }
 
-func (r *repository) UpdateTodos(id string) (model.Todos, error) {
+func (r *repository) UpdateTodos(id uint) (model.Todos, error) {
 	todo := model.Todos{
 		Done: true,
 	}
@@ -70,7 +70,6 @@ func (r *repository) DeleteTodos(id uint) (model.Todos, error) {
 	}
 
 	res := r.db.Delete(&todo)
-	// Model(&todo).Where("ID", id).Delete(&todo)
 	if res.Error != nil {
 		log.Println("delete error", res.Error)
 		return model.Todos{}, res.Error
