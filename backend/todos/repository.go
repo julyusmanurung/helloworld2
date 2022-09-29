@@ -50,10 +50,14 @@ func (r *repository) CreateTodos(task string) (model.Todos, error) {
 
 func (r *repository) UpdateTodos(id uint) (model.Todos, error) {
 	todo := model.Todos{
+		Model: gorm.Model{
+			ID: id,
+		},
 		Done: true,
 	}
 
-	res := r.db.Model(&todo).Where("ID", id).Updates(&todo)
+	res := r.db.Save(&todo)
+	// res := r.db.Model(&todo).Where("ID", id).Updates(&todo)
 	if res.Error != nil {
 		log.Println("update error", res.Error)
 		return model.Todos{}, res.Error
